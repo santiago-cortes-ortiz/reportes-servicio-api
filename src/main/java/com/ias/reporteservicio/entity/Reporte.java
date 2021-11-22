@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
@@ -16,7 +17,7 @@ import java.util.Calendar;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reporte {
+public class Reporte implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -24,11 +24,17 @@ public class ServicioReporteImpl implements ServicioReporte {
         try{
             log.info("Se esta creando el recurso");
             validarFechas(reporte);
-            return repositorioReporte.save(reporte);
+            Reporte reporteGuardar = repositorioReporte.save(reporte);
+            hacerReporteHoras(reporte);
+            return reporteGuardar;
         }catch(ReporteException e){
             log.error(e.getMessage());
             throw new ReporteException(Constante.FECHA_INICIO_MAYOR_A_FECHA_FIN);
         }
+    }
+
+    private void hacerReporteHoras(Reporte reporte) {
+
     }
 
     @Override
@@ -52,7 +58,7 @@ public class ServicioReporteImpl implements ServicioReporte {
                 long value = fechaFinal - fechaInicio;
                 long msDia = 1000*60*60*24;
                 dias = value / msDia;
-                horasDeTrabajo = dias * Constante.JORNADA_COMPLETA_HORAS;
+                horasDeTrabajo = dias * Constante.HORAS_NORMALES;
             }else{
                 horasDeTrabajo = 0;
             }
