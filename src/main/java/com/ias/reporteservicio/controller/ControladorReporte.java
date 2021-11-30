@@ -38,7 +38,7 @@ public class ControladorReporte {
                         .marcaTiempo(LocalDateTime.now())
                         .codigoEstado(HttpStatus.OK.value())
                         .estadoHttp(HttpStatus.OK)
-                        .dato(Map.of("horas",servicioReporte.calcularHorasDeTrabajo(idTecnico, numeroSemana)))
+                        .dato(Map.of("horas",servicioReporte.calcularHorasLaborales(idTecnico, numeroSemana)))
                         .mensaje("Se calculo las horas de trabajo")
                         .build()
         );

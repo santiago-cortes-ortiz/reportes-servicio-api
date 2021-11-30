@@ -2,7 +2,9 @@ package com.ias.reporteservicio.reporte;
 
 import com.ias.reporteservicio.entity.Reporte;
 import com.ias.reporteservicio.exception.ReporteException;
+import com.ias.reporteservicio.repository.RepositorioHorasTrabajo;
 import com.ias.reporteservicio.repository.RepositorioReporte;
+import com.ias.reporteservicio.repository.RepositorioReporteHora;
 import com.ias.reporteservicio.service.imp.ServicioReporteImpl;
 import com.ias.reporteservicio.util.Constante;
 import org.junit.jupiter.api.AfterAll;
@@ -27,11 +29,15 @@ class ServicioReporteTest {
 
     @Mock
     private RepositorioReporte repositorioReporte;
+    @Mock
+    private RepositorioReporteHora repositorioReporteHora;
+    @Mock
+    private RepositorioHorasTrabajo repositorioHorasTrabajo;
     private ServicioReporteImpl servicioReporte;
 
     @BeforeEach
     void setUp() {
-        servicioReporte = new ServicioReporteImpl(repositorioReporte);
+        servicioReporte = new ServicioReporteImpl(repositorioReporte,repositorioHorasTrabajo,repositorioReporteHora);
     }
 
     @Test
