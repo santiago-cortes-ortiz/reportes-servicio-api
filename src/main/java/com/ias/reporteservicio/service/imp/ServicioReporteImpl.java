@@ -114,46 +114,6 @@ public class ServicioReporteImpl implements ServicioReporte {
                 .build();
     }
 
-    private ReportesHorasDTO calculoHorasTest(List<Reporte> reportesEncontrados) {
-        double horasTotales = 0;
-        double horasNormales = 0;
-        double horasNocturnas = 0;
-        double horasDomicinales = 0;
-        double horasNormalesExtras = 0;
-        double horasNocturnasExtras = 0;
-        double horasDomicinalesExtras = 0;
-        for (Reporte reporte : reportesEncontrados) {
-            horasNormales += horasNormales(reporte);
-            horasNocturnas += horasNocturnas(reporte);
-            horasDomicinales += horasDomicinales(reporte);
-            horasTotales += horasTotales(reporte);
-            horasNormalesExtras += horasNormalesExtras(reporte);
-            horasNocturnasExtras += horasNocturnasExtras(reporte);
-            horasDomicinalesExtras += horasDomicinalesExtras(reporte);
-            }
-        return ReportesHorasDTO.builder()
-                .horasTotales(horasTotales)
-                .horasNormales(horasNormales)
-                .horasNocturnas(horasNocturnas)
-                .horasNormalesExtras(horasNormalesExtras)
-                .horasNocturnasExtras(horasNocturnasExtras)
-                .horasDomicinales(horasDomicinales)
-                .horasDomicinalesExtras(horasDomicinalesExtras)
-                .build();
-    }
-
-    private double horasDomicinalesExtras(Reporte reporte) {
-        return 0;
-    }
-
-    private double horasNocturnasExtras(Reporte reporte) {
-        return 0;
-    }
-
-    private double horasNormalesExtras(Reporte reporte) {
-        return 0;
-    }
-
     private double horasDomicinales(Reporte reporte) {
         Calendar fechaInicio = reporte.getFechaInicio();
         double horasDomicinales = 0;
