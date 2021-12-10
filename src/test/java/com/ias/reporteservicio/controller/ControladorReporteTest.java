@@ -2,10 +2,16 @@ package com.ias.reporteservicio.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ias.reporteservicio.dto.ReportesHorasDTO;
+import com.ias.reporteservicio.entity.Reporte;
 import com.ias.reporteservicio.service.ServicioReporte;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -20,15 +26,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties
 @AutoConfigureMockMvc
 public class ControladorReporteTest {
@@ -37,13 +47,13 @@ public class ControladorReporteTest {
     @MockBean
     @Autowired
     private ServicioReporte service;
-
+    @Autowired
+    private ObjectMapper objectMapper;
     private String readJsonResponse(String url)throws IOException, URISyntaxException {
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         return Files.lines(Paths.get(Objects.requireNonNull(loader.getResource(url)).toURI())).parallel()
                 .collect(Collectors.joining());
     }
-
     @BeforeEach
     void setUp() {
         Mockito.when(service.calcularHorasLaborales("1111",41))
@@ -60,12 +70,25 @@ public class ControladorReporteTest {
                 );
     }
     @Test
+    void puedeHacerReporte()throws Exception {
+        mockMvc.perform(post("/reportes/")
+                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+
+    }
+
+    /*private static Stream<Arguments> requestPersistence(){
+        return Stream.of(Arguments.arguments("payload/request-reporte.json","payload/response-reporte.json"));
+    }*/
+    @Test
+    @DisplayName("puede devolver una respuesta de horas de trabajo")
     void puedeCalcularHorasDeTrabajo() throws Exception {
         mockMvc.perform(get("/reportes/calcularHoras/1111/41")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                        .param("idTecnico","1111")
+                                .param("numeroSemana","41")
+                )
                 .andExpect(status().is(200))
                 .andExpect(content().json(readJsonResponse("payload/reporte-horas.json")))
                 ;
     }
-
 }

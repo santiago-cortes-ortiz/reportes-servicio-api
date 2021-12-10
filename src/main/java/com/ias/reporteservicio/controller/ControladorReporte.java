@@ -5,6 +5,7 @@ import com.ias.reporteservicio.entity.Reporte;
 import com.ias.reporteservicio.service.ServicioReporte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,18 +20,6 @@ public class ControladorReporte {
 
     private final ServicioReporte servicioReporte;
 
-    @GetMapping("/listar")
-    public ResponseEntity<Respuesta> listarReportes(){
-        return ResponseEntity.ok(
-                Respuesta.builder()
-                        .marcaTiempo(LocalDateTime.now())
-                        .codigoEstado(HttpStatus.OK.value())
-                        .estadoHttp(HttpStatus.OK)
-                        .dato(Map.of("reportes",servicioReporte.listarReportes()))
-                        .mensaje("Se listaron los reportes")
-                        .build()
-        );
-    }
     @GetMapping("/calcularHoras/{idTecnico}/{numeroSemana}")
     public ResponseEntity<Respuesta> calcularHorasDeTrabajo(@PathVariable("idTecnico") String idTecnico,@PathVariable("numeroSemana") Integer numeroSemana){
         return ResponseEntity.ok(
@@ -43,7 +32,7 @@ public class ControladorReporte {
                         .build()
         );
     }
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Respuesta> hacerReporte(@RequestBody @Valid Reporte reporte){
         return ResponseEntity.ok(
                 Respuesta.builder().marcaTiempo(LocalDateTime.now())

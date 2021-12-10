@@ -1,0 +1,14 @@
+{
+  "codigoEstado": 201,
+  "estadoHttp": "CREATED",
+  "mensaje": "Reporte creado",
+  "dato": {
+    "reporte": {
+      "id": 3,
+      "idTecnico": "1003813503",
+      "idServicio": "aaa222",
+      "fechaInicio": "2021-01-12T00:00:00.000+00:00",
+      "fechaFin": "2021-01-18T00:00:00.000+00:00"
+    }
+  }
+}
