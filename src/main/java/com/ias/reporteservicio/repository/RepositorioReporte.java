@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RepositorioReporte extends JpaRepository<Reporte,Long> {
-    List<Reporte> findAllByIdTecnico(String idTecnico);
+    List<Reporte> findAllByIdTecnicoAndNumeroSemana(String idTecnico,Integer numeroSemana);
 }

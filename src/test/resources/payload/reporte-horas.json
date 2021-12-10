@@ -1,0 +1,16 @@
+{
+  "codigoEstado": 200,
+  "estadoHttp": "OK",
+  "mensaje": "Se calculo las horas de trabajo",
+  "dato": {
+    "horas": {
+      "horasTotales": 56.0,
+      "horasNormales": 28.0,
+      "horasNocturnas": 13.0,
+      "horasNormalesExtras": 3.0,
+      "horasNocturnasExtras": 3.0,
+      "horasDomicinales": 7.0,
+      "horasDomicinalesExtras": 2.0
+    }
+  }
+}

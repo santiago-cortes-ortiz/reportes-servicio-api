@@ -2,26 +2,20 @@ package com.ias.reporteservicio.reporte;
 
 import com.ias.reporteservicio.entity.Reporte;
 import com.ias.reporteservicio.exception.ReporteException;
-import com.ias.reporteservicio.repository.RepositorioHorasTrabajo;
 import com.ias.reporteservicio.repository.RepositorioReporte;
-import com.ias.reporteservicio.repository.RepositorioReporteHora;
 import com.ias.reporteservicio.service.imp.ServicioReporteImpl;
 import com.ias.reporteservicio.util.Constante;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Calendar;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,15 +23,11 @@ class ServicioReporteTest {
 
     @Mock
     private RepositorioReporte repositorioReporte;
-    @Mock
-    private RepositorioReporteHora repositorioReporteHora;
-    @Mock
-    private RepositorioHorasTrabajo repositorioHorasTrabajo;
     private ServicioReporteImpl servicioReporte;
 
     @BeforeEach
     void setUp() {
-        servicioReporte = new ServicioReporteImpl(repositorioReporte,repositorioHorasTrabajo,repositorioReporteHora);
+        servicioReporte = new ServicioReporteImpl(repositorioReporte);
     }
 
     @Test
@@ -55,7 +45,12 @@ class ServicioReporteTest {
         fechaIncio.set(2021,07,21);
         Calendar fechaFin = Calendar.getInstance();
         fechaFin.set(2021,07,28);
-        Reporte reporte = new Reporte(Long.parseLong("8"),"tecnicoPrueba","servicioPrueba", fechaIncio,fechaFin);
+        Reporte reporte = new Reporte();
+        reporte.setIdTecnico("1003813503");
+        reporte.setIdServicio("aaa111");
+        reporte.setFechaInicio(fechaIncio);
+        reporte.setFechaFin(fechaFin);
+        reporte.setNumeroSemana(fechaIncio.get(Calendar.WEEK_OF_YEAR));
         //when
         servicioReporte.hacerReporte(reporte);
         //then
@@ -71,7 +66,12 @@ class ServicioReporteTest {
         fechaIncio.set(2021,07,21);
         Calendar fechaFin = Calendar.getInstance();
         fechaFin.set(2021,07,10);
-        Reporte reporte = new Reporte(Long.parseLong("8"),"tecnicoPrueba","servicioPrueba", fechaIncio,fechaFin);
+        Reporte reporte = new Reporte();
+        reporte.setIdTecnico("1003813503");
+        reporte.setIdServicio("aaa111");
+        reporte.setFechaInicio(fechaIncio);
+        reporte.setFechaFin(fechaFin);
+        reporte.setNumeroSemana(fechaIncio.get(Calendar.WEEK_OF_YEAR));
         //when
         // then
         assertThatThrownBy( () -> servicioReporte.hacerReporte(reporte))

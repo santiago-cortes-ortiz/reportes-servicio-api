@@ -1,10 +1,8 @@
 package com.ias.reporteservicio.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
 @SuperBuilder
